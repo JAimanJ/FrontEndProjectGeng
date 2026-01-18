@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="script.js"></script>
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="icon" type="image/png" href="tablogo.png">
+    <title>MoneySpendee | Dashboard</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+
+<body class="bg-[#F9FAFB] min-h-screen flex flex-col">
+    <header class="bg-[#FFFFFF] px-8 py-4 flex justify-between items-center border-b border-gray-200">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 flex items-center justify-center">
+                <a href="spendeeHomepage.html">
+                    <img src="logo.png" alt="The image is not found!" width="80%">
+                </a>
+            </div>
+            <a href="spendeeHomepage.html" class="text-2xl hover:text-[#2563EB] font-bold">MoneySpendee</a>
+        </div>
+        <nav class="flex items-center gap-8">
+            <a href="spendeeHomepage.html" class="text-xl hover:text-[#2563EB] font-bold">Home</a>
+            <a href="group.html" class="text-xl text-[#2563EB] font-bold">Dashboard</a>
+            <a href="AboutPage.html" class="text-xl hover:text-[#2563EB] font-bold">About</a>
+            <div class="w-10 h-10 flex items-center justify-center">
+                <a href="#">
+                    <img src="user.png" alt="The image is not found!" width="80%">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow p-12 max-w-7xl mx-auto w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            
+            <section>
+                <div class="flex items-center gap-4 mb-8">
+                    <h2 class="text-4xl font-bold">Summary</h2>
+                    <button class="bg-black rounded-full w-10 h-10 flex items-center justify-center p-2">
+                        <img src="printer.png" alt="The image is not found!" class="w-full h-auto invert">
+                    </button>
+                </div>
+                
+                <div class="flex flex-row items-stretch gap-20">
+                    <div class="flex gap-6">
+                        <!-- why is group used? it is a class used to change style of child element based on the state of parent element -->
+                        <div class="group bg-[#FFFFFF] border-2 border-black rounded-2xl p-8 flex flex-col items-center justify-between w-64 h-80 shadow transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                            <h3 class="text-xl font-bold text-center w-full border-b-2 border-black pb-2 group-hover:text-[#2563EB] group-hover:border-[#2563EB]">Total Spending</h3>
+                            <div class="relative w-32 h-32 flex items-center justify-center">
+                                <img src="spending.png" alt="The image is not found!" width="80%">
+                            </div>
+                            <p class="text-2xl font-bold text-center w-32 border-t-2 border-black pt-2 group-hover:text-[#2563EB] group-hover:border-[#2563EB]">RM00.00</p>
+                        </div>
+
+                        <div class="group bg-[#FFFFFF] border-2 border-black rounded-2xl p-8 flex flex-col items-center justify-between w-64 h-80 shadow transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                            <h3 class="text-xl font-bold text-center w-full border-b-2 border-black pb-2 group-hover:text-[#2563EB] group-hover:border-[#2563EB]">Remaining Budget</h3>
+                            <div class="relative w-32 h-32 flex items-center justify-center">
+                                <img src="budget.png" alt="The image is not found!" width="80%">
+                            </div>
+                            <p class="text-2xl font-bold text-center w-32 border-t-2 border-black pt-2 group-hover:text-[#2563EB] group-hover:border-[#2563EB]">RM00.00</p>
+                        </div>
+                    </div>
+            
+                   <div class="flex-1 min-w-[580px] bg-white border-2 border-black rounded-2xl p-6 shadow h-80">
+                        <h3 class="text-xl font-bold border-b-2 border-black pb-2 mb-4">Expenses</h3>
+                        
+                        <div class="space-y-4 overflow-y-auto h-[210px] pr-2 custom-scrollbar">
+                            <div class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg transition-colors border-b border-dashed border-gray-200 hover:text-[#2563EB]">
+                                <div >
+                                    <p class="font-bold">Starbucks Coffee</p>
+                                    <p class="text-xs text-gray-500">Food & Drink 12 Jan 2024</p>
+                                </div>
+                                <p class="font-bold text-red-500">-RM18.50</p>
+                            </div>
+                                
+                            <div class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg transition-colors border-b border-dashed border-gray-200 hover:text-[#2563EB]">
+                                <div>
+                                    <p class="font-bold">Electric Bills</p>
+                                    <p class="text-xs text-gray-500">Utilities 10 Jan 2024</p>
+                                </div>
+                                <p class="font-bold text-red-500">-RM17.00</p>
+                            </div>
+
+                            <div class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg transition-colors border-b border-dashed border-gray-200 hover:text-[#2563EB]">
+                                <div>
+                                    <p class="font-bold">ASICS Novablast 4</p>
+                                    <p class="text-xs text-gray-500">Shopping 03 Feb 2026</p>
+                                </div>
+                                <p class="font-bold text-red-500">-RM350.00</p>
+                            </div>
+
+                            <div class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg transition-colors border-b border-dashed border-gray-200 hover:text-[#2563EB]">
+                                <div>
+                                    <p class="font-bold">Brain Surgery</p>
+                                    <p class="text-xs text-gray-500">Health 12 Dec 2023</p>
+                                </div>
+                                <p class="font-bold text-red-500">-RM4,067.00</p>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+
+                <div class="py-4 px-2">
+                    <a href="form.html" class="text-sm text-gray-500 hover:text-[#2563EB] underline">No information yet? Click here to enter.</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-[#FFFFFF] py-4 px-8 text-right text-sm border-t border-gray-200">
+        <p>&copy; 2025-2026 MoneySpendee. All rights reserved.</p>
+    </footer>
+</body>
+</html>
