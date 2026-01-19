@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User | MoneySpendee</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="font-['Inter'] bg-[#f9fafb] text-gray-900 min-h-screen flex flex-col">
+
+  <<!-- GLOBAL HEADER -->
+<header class="bg-[#1f4f63] text-white shadow">
+  <div class="max-w-[1200px] mx-auto flex items-center justify-between px-6 py-3">
+
+    <!-- Logo -->
+    <a href="pageHome.html" class="flex items-center gap-3">
+      <img
+        src="src/logo.jpeg"
+        alt="MoneySpendee Logo"
+        class="w-10 h-10 rounded-full bg-white object-cover"
+      />
+      <span class="text-lg font-semibold tracking-wide">
+        MONEYSPENDEE
+      </span>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="flex items-center gap-8 text-sm font-medium">
+
+      <!-- Change underline class per page -->
+      <a href="pageHome.html" class="hover:opacity-80">
+        Home
+      </a>
+
+      <a href="aboutPage.html" class="hover:opacity-80">
+        About
+      </a>
+
+      <a href="money.html" class="hover:opacity-80">
+        Money
+      </a>
+
+      <a href="trackMoney.html" class="hover:opacity-80">
+        Money Tracking
+      </a>
+
+      <a
+        href="user.html"
+        class="ml-2 w-9 h-9 rounded-full border border-white/40
+               flex items-center justify-center bg-white/10 hover:bg-white/20 transition"
+      >
+        <img src="src/user.png" alt="User" class="w-full h-full object-cover"/>
+      </a>
+
+    </nav>
+  </div>
+</header>
+
+
+  <!-- MAIN -->
+  <main class="max-w-7xl mx-auto w-full p-6 grid grid-cols-1 lg:grid-cols-3 gap-6 flex-grow">
+
+    <!-- LEFT SIDE -->
+    <div class="lg:col-span-2 space-y-6">
+
+      <!-- USER PROFILE CARD -->
+      <div class="bg-white rounded-xl p-6 shadow-md">
+        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
+          <i class="fas fa-user text-blue-500"></i> User Profile
+        </h2>
+
+        <form id="profileForm">
+          <label class="block mb-2 font-medium">Full Name</label>
+          <input id="userName" type="text"
+                 class="w-full border border-gray-300 p-2 mb-4 rounded focus:outline-none focus:ring-2 focus:ring-black/30"
+                 value="John Doe">
+
+          <label class="block mb-2 font-medium">Email</label>
+          <input id="userEmail" type="email"
+                 class="w-full border border-gray-300 p-2 mb-4 rounded focus:outline-none focus:ring-2 focus:ring-black/30"
+                 value="john.doe@example.com">
+
+          <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition" type="submit">
+            Save Profile
+          </button>
+
+          <p id="profileSaveMsg" class="text-green-500 mt-3 hidden">Profile saved!</p>
+        </form>
+      </div>
+
+      <!-- THEMES (6 boxes only) -->
+      <div class="bg-white rounded-xl p-6 shadow-md">
+        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
+          <i class="fas fa-palette text-green-500"></i> Themes
+        </h2>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="theme-option border border-gray-300 p-4 text-center rounded cursor-pointer hover:bg-gray-50 transition" data-theme="default">Default</div>
+          <div class="theme-option border border-gray-300 p-4 text-center rounded cursor-pointer hover:bg-gray-50 transition" data-theme="dark">Dark</div>
+          <div class="theme-option border border-gray-300 p-4 text-center rounded cursor-pointer hover:bg-gray-50 transition" data-theme="light-blue">Light Blue</div>
+          <div class="theme-option border border-gray-300 p-4 text-center rounded cursor-pointer hover:bg-gray-50 transition" data-theme="protanopia">Protanopia</div>
+          <div class="theme-option border border-gray-300 p-4 text-center rounded cursor-pointer hover:bg-gray-50 transition" data-theme="deuteranopia">Deuteranopia</div>
+          <div class="theme-option border border-gray-300 p-4 text-center rounded cursor-pointer hover:bg-gray-50 transition" data-theme="tritanopia">Tritanopia</div>
+        </div>
+
+        <p class="mt-4">
+          Current Theme:
+          <span id="currentThemeDisplay" class="font-bold">default</span>
+        </p>
+
+        <button id="resetThemeBtn" class="mt-4 border border-gray-300 px-4 py-2 rounded hover:bg-gray-50 transition" type="button">
+          Reset Theme
+        </button>
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="space-y-6">
+
+      <!-- SUMMARY CARD -->
+      <div class="bg-white rounded-xl p-6 shadow-md">
+        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
+          <i class="fas fa-clipboard"></i> Settings Summary
+        </h2>
+
+        <p>Theme: <strong id="summaryTheme">default</strong></p>
+        <p>Name: <strong id="summaryUser">John Doe</strong></p>
+        <p>Email: <strong id="summaryEmail">john.doe@example.com</strong></p>
+      </div>
+
+      <!-- CHART CARD -->
+      <div class="bg-white rounded-xl p-6 shadow-md">
+        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
+          <i class="fas fa-chart-pie"></i> Category Distribution
+        </h2>
+
+        <div class="h-64">
+          <canvas id="categoryChart"></canvas>
+        </div>
+
+        <button id="exportSettingsBtn" class="mt-4 border border-gray-300 w-full py-2 rounded hover:bg-gray-50 transition" type="button">
+          Export Settings
+        </button>
+
+        <button id="printSettingsBtn" class="mt-2 bg-blue-500 hover:bg-blue-600 text-white w-full py-2 rounded transition" type="button">
+          Print Settings
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- PRINT SECTION -->
+  <div id="printSection" class="hidden p-6">
+    <h1 class="text-xl font-bold">Settings Summary</h1>
+    <p>Date: <span id="printDate"></span></p>
+    <p>Name: <span id="printUser"></span></p>
+    <p>Email: <span id="printUserEmail"></span></p>
+    <p>Theme: <span id="printTheme"></span></p>
+  </div>
+
+  <!-- Theme Apply: other pages will read localStorage too -->
+  <script>
+    var currentTheme = "default";
+    var chart;
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // Grab elements safely (fixes your previous undefined vars)
+      var profileForm = document.getElementById("profileForm");
+      var resetThemeBtn = document.getElementById("resetThemeBtn");
+      var exportSettingsBtn = document.getElementById("exportSettingsBtn");
+      var printSettingsBtn = document.getElementById("printSettingsBtn");
+
+      loadProfile();
+      loadTheme();
+      updateSummary();
+      loadChart();
+
+      if (profileForm) profileForm.addEventListener("submit", saveProfile);
+      if (resetThemeBtn) resetThemeBtn.addEventListener("click", resetTheme);
+      if (exportSettingsBtn) exportSettingsBtn.addEventListener("click", exportSettings);
+      if (printSettingsBtn) printSettingsBtn.addEventListener("click", printSettings);
+
+      document.querySelectorAll(".theme-option").forEach(function (item) {
+        item.addEventListener("click", function () {
+          setTheme(item.dataset.theme);
+        });
+      });
+    });
+
+    function saveProfile(e) {
+      e.preventDefault();
+
+      var userName = document.getElementById("userName");
+      var userEmail = document.getElementById("userEmail");
+      var profileSaveMsg = document.getElementById("profileSaveMsg");
+
+      if (!userName || !userEmail) return;
+
+      localStorage.setItem("name", userName.value);
+      localStorage.setItem("email", userEmail.value);
+
+      if (profileSaveMsg) profileSaveMsg.classList.remove("hidden");
+      updateSummary();
+    }
+
+    function loadProfile() {
+      var userName = document.getElementById("userName");
+      var userEmail = document.getElementById("userEmail");
+
+      if (userName) userName.value = localStorage.getItem("name") || "John Doe";
+      if (userEmail) userEmail.value = localStorage.getItem("email") || "john.doe@example.com";
+    }
+
+    function updateSummary() {
+      var userName = document.getElementById("userName");
+      var userEmail = document.getElementById("userEmail");
+
+      var summaryUser = document.getElementById("summaryUser");
+      var summaryEmail = document.getElementById("summaryEmail");
+      var summaryTheme = document.getElementById("summaryTheme");
+
+      if (summaryUser && userName) summaryUser.innerText = userName.value;
+      if (summaryEmail && userEmail) summaryEmail.innerText = userEmail.value;
+      if (summaryTheme) summaryTheme.innerText = currentTheme;
+    }
+
+    function setTheme(theme) {
+      // Clear only theme classes we set
+      document.body.classList.remove(
+        "bg-[#f9fafb]", "text-gray-900",
+        "bg-[#1f2937]", "text-white",
+        "bg-[#f0f9ff]", "text-slate-900",
+        "bg-[#f8fafc]",
+        "bg-[#fef3c7]"
+      );
+
+      // Always keep base layout classes
+      document.body.classList.add("min-h-screen", "flex", "flex-col");
+
+      // Default theme
+      if (theme === "default") {
+        document.body.classList.add("bg-[#f9fafb]", "text-gray-900");
+      }
+
+      // Dark theme
+      if (theme === "dark") {
+        document.body.classList.add("bg-[#1f2937]", "text-white");
+      }
+
+      // Light blue theme
+      if (theme === "light-blue") {
+        document.body.classList.add("bg-[#f0f9ff]", "text-slate-900");
+      }
+
+      // Accessibility-ish backgrounds
+      if (theme === "protanopia") {
+        document.body.classList.add("bg-[#f8fafc]", "text-slate-900");
+      }
+
+      if (theme === "deuteranopia") {
+        document.body.classList.add("bg-[#f9fafb]", "text-slate-900");
+      }
+
+      if (theme === "tritanopia") {
+        document.body.classList.add("bg-[#fef3c7]", "text-slate-900");
+      }
+
+      currentTheme = theme;
+
+      var currentThemeDisplay = document.getElementById("currentThemeDisplay");
+      var summaryTheme = document.getElementById("summaryTheme");
+
+      if (currentThemeDisplay) currentThemeDisplay.innerText = theme;
+      if (summaryTheme) summaryTheme.innerText = theme;
+
+      localStorage.setItem("theme", theme);
+    }
+
+    function loadTheme() {
+      var t = localStorage.getItem("theme");
+      setTheme(t || "default");
+    }
+
+    function resetTheme() {
+      setTheme("default");
+    }
+
+    function loadChart() {
+      var categoryChart = document.getElementById("categoryChart");
+      if (!categoryChart || typeof Chart === "undefined") return;
+
+      chart = new Chart(categoryChart, {
+        type: "doughnut",
+        data: {
+          labels: ["Food", "Transport", "Entertainment", "Shopping"],
+          datasets: [{
+            data: [30, 20, 25, 25],
+            backgroundColor: ["#3b82f6", "#10b981", "#8b5cf6", "#f59e0b"]
+          }]
+        }
+      });
+    }
+
+    function exportSettings() {
+      var userName = document.getElementById("userName");
+      var userEmail = document.getElementById("userEmail");
+
+      var data = {
+        name: userName ? userName.value : "",
+        email: userEmail ? userEmail.value : "",
+        theme: currentTheme
+      };
+
+      var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      var link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "settings.json";
+      link.click();
+    }
+
+    function printSettings() {
+      var userName = document.getElementById("userName");
+      var userEmail = document.getElementById("userEmail");
+
+      var printDate = document.getElementById("printDate");
+      var printUser = document.getElementById("printUser");
+      var printUserEmail = document.getElementById("printUserEmail");
+      var printTheme = document.getElementById("printTheme");
+      var printSection = document.getElementById("printSection");
+
+      if (printDate) printDate.innerText = new Date().toString();
+      if (printUser && userName) printUser.innerText = userName.value;
+      if (printUserEmail && userEmail) printUserEmail.innerText = userEmail.value;
+      if (printTheme) printTheme.innerText = currentTheme;
+
+      if (printSection) printSection.classList.remove("hidden");
+      window.print();
+      if (printSection) printSection.classList.add("hidden");
+    }
+  </script>
+
+</body>
+</html>
