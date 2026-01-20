@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home | MoneySpendee</title>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { darkMode: 'class' }
+</script>
+
+<!-- Inter Font -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+</head>
+
+<body class="font-['Inter'] bg-[#ffffff] dark:bg-[#1a1a1a] text-[#333333] dark:text-[#f0f0f0] min-h-screen flex">
+
+<!-- THEME SIDEBAR -->
+<aside id="themeSidebar" class="fixed left-0 top-0 h-full w-60 bg-white dark:bg-[#1f2933] shadow-lg p-6 flex flex-col gap-4 -translate-x-full transition-transform z-50">
+  <h2 class="font-semibold text-lg mb-4">Theme Selector</h2>
+  <button onclick="setTheme('default')" class="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700">Default</button>
+  <button onclick="setTheme('dark')" class="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700">Dark</button>
+  <button onclick="setTheme('light-blue')" class="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700">Light Blue</button>
+  <button onclick="setTheme('protanopia')" class="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700">Protanopia</button>
+  <button onclick="setTheme('deuteranopia')" class="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700">Deuteranopia</button>
+  <button onclick="setTheme('tritanopia')" class="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700">Tritanopia</button>
+</aside>
+
+<!-- PAGE CONTENT -->
+<div id="pageContent" class="flex-1 flex flex-col transition-all duration-300">
+
+  <!-- HEADER -->
+  <header class="bg-[#1f4f63] text-white shadow relative">
+    <div class="max-w-[1200px] mx-auto flex items-center justify-between px-6 py-3">
+      <a href="pageHome.html" class="flex items-center gap-3">
+        <img src="SPENDEE.png" alt="MoneySpendee Logo" class="w-10 h-10 rounded-full bg-white object-cover"/>
+        <span class="text-lg font-semibold tracking-wide">MONEYSPENDEE</span>
+      </a>
+      <nav class="flex items-center gap-8 text-sm font-medium">
+        <a href="pageHome.html" class="hover:opacity-80 underline underline-offset-4">Home</a>
+        <a href="aboutPage.html" class="hover:opacity-80">About</a>
+        <a href="money.html" class="hover:opacity-80">Money</a>
+        <a href="trackMoney.html" class="hover:opacity-80">Money Tracking</a>
+        <a href="user.html" class="ml-2 w-9 h-9 rounded-full border border-white/40 flex items-center justify-center bg-white/10 hover:bg-white/20 transition">
+          <img src="src/user.png" alt="User" class="w-full h-full object-cover"/>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="flex-grow p-6">
+
+    <!-- Theme Button -->
+    <div class="mb-6 flex justify-end">
+      <button onclick="toggleSidebar()" class="px-3 py-2 rounded bg-[#1f4f63] dark:bg-[#243b4a] text-white font-semibold hover:opacity-90 transition">
+        Theme
+      </button>
+    </div>
+
+    <!-- WELCOME SECTION -->
+    <section class="max-w-[1200px] mx-auto rounded-2xl overflow-hidden bg-gradient-to-br from-[#2b5d73] to-[#1f4f63] dark:from-[#243b4a] dark:to-[#1b2f3b] p-8 text-white text-center mb-6">
+      <h1 class="text-2xl md:text-3xl font-bold mb-3">Welcome back 👋</h1>
+      <p class="text-white/80 mb-4">Let’s continue with our plan and take control of your finances.</p>
+      <p class="text-lg font-semibold">Total Expenses: <span id="expenseTotal" class="text-red-300">RM 0</span></p>
+    </section>
+
+    <!-- MONTH SELECTOR -->
+    <section class="flex justify-center mb-6">
+      <select id="monthSelect" class="bg-[#e6e6e6] dark:bg-[#333333] px-4 py-2 rounded border border-[#999999] dark:border-[#555555]">
+        <option value="0">January</option>
+        <option value="1">February</option>
+        <option value="2">March</option>
+        <option value="3">April</option>
+        <option value="4">May</option>
+        <option value="5">June</option>
+        <option value="6">July</option>
+        <option value="7">August</option>
+        <option value="8">September</option>
+        <option value="9">October</option>
+        <option value="10">November</option>
+        <option value="11">December</option>
+      </select>
+    </section>
+
+    <!-- CARDS -->
+    <section class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-[#1f4f63] dark:bg-[#243b4a] text-white p-6 rounded-2xl text-center shadow hover:-translate-y-2 hover:shadow-2xl transition">
+        🍴 <h3>Food & Drink</h3><p id="foodTotal">RM 0</p>
+      </div>
+      <div class="bg-[#1f4f63] dark:bg-[#243b4a] text-white p-6 rounded-2xl text-center shadow hover:-translate-y-2 hover:shadow-2xl transition">
+        ⚡ <h3>Utilities</h3><p id="utilitiesTotal">RM 0</p>
+      </div>
+      <div class="bg-[#1f4f63] dark:bg-[#243b4a] text-white p-6 rounded-2xl text-center shadow hover:-translate-y-2 hover:shadow-2xl transition">
+        🛍 <h3>Shopping</h3><p id="shoppingTotal">RM 0</p>
+      </div>
+      <div class="bg-[#1f4f63] dark:bg-[#243b4a] text-white p-6 rounded-2xl text-center shadow hover:-translate-y-2 hover:shadow-2xl transition">
+        ❤️ <h3>Health</h3><p id="healthTotal">RM 0</p>
+      </div>
+    </section>
+
+    <!-- 12-MONTH BAR CHART -->
+    <section class="max-w-[1200px] mx-auto bg-[#ffffff] dark:bg-[#2b2b2b] p-4 rounded-[12px] shadow mb-8 border border-[#cccccc] dark:border-[#555555]">
+      <h2 class="text-center font-semibold mb-4 text-[14px]">Income vs Expenses (Year Overview)</h2>
+
+      <div id="chart" class="flex items-end justify-between h-[180px] gap-2"></div>
+
+      <!-- Legend -->
+      <div class="flex justify-center gap-4 mt-3">
+        <div class="flex items-center gap-1"><div class="w-4 h-4 bg-[#8ecae6] dark:bg-[#00509e]"></div><span class="text-[12px]">Saved</span></div>
+        <div class="flex items-center gap-1"><div class="w-4 h-4 bg-[#f87171] dark:bg-[#c53030]"></div><span class="text-[12px]">Expenses</span></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#1b5a73] dark:bg-[#162c38] text-white mt-auto">
+    <div class="max-w-[1400px] mx-auto px-8 py-5 flex flex-col md:flex-row justify-between items-center gap-3 text-sm">
+      <span>© 2025-2026 MONEYSPENDEE. All rights reserved.</span>
+      <span class="opacity-90">Group 6 – ITT588</span>
+    </div>
+  </footer>
+
+</div>
+
+<!-- SCRIPT -->
+<script>
+const expensesByMonth = [
+  { food: 120, utilities: 80, shopping: 200, health: 50 },
+  { food: 150, utilities: 90, shopping: 300, health: 70 },
+  { food: 180, utilities: 100, shopping: 250, health: 60 },
+  { food: 200, utilities: 110, shopping: 220, health: 40 },
+  { food: 160, utilities: 90, shopping: 180, health: 55 },
+  { food: 170, utilities: 95, shopping: 210, health: 65 },
+  { food: 190, utilities: 105, shopping: 260, health: 75 },
+  { food: 175, utilities: 98, shopping: 240, health: 68 },
+  { food: 160, utilities: 85, shopping: 200, health: 50 },
+  { food: 180, utilities: 100, shopping: 270, health: 70 },
+  { food: 200, utilities: 120, shopping: 300, health: 90 },
+  { food: 220, utilities: 130, shopping: 350, health: 100 }
+];
+
+// Update cards and total
+function updateUI() {
+  const month = Number(document.getElementById("monthSelect").value);
+  const data = expensesByMonth[month];
+  const total = data.food + data.utilities + data.shopping + data.health;
+
+  document.getElementById("foodTotal").innerText = "RM " + data.food;
+  document.getElementById("utilitiesTotal").innerText = "RM " + data.utilities;
+  document.getElementById("shoppingTotal").innerText = "RM " + data.shopping;
+  document.getElementById("healthTotal").innerText = "RM " + data.health;
+  document.getElementById("expenseTotal").innerText = "RM " + total;
+
+  renderChart();
+}
+
+// Render 12-month grouped bar chart
+function renderChart() {
+  const chart = document.getElementById("chart");
+  chart.innerHTML = "";
+  const maxValue = Math.max(...expensesByMonth.map(m => m.food + m.utilities + m.shopping + m.health));
+
+  const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+  expensesByMonth.forEach((m, i) => {
+    const total = m.food + m.utilities + m.shopping + m.health;
+    const saved = Math.max(total * 0.6, 20); // Demo saved (blue)
+    const expenses = total - saved; // red
+
+    const monthDiv = document.createElement("div");
+    monthDiv.className = "flex flex-col items-center gap-1";
+
+    // Fill chart more proportionally
+    const savedHeight = (saved/maxValue) * 160; // 160px max
+    const expenseHeight = (expenses/maxValue) * 160;
+
+    monthDiv.innerHTML = `
+      <div class="flex items-end gap-[2px]">
+        <div class="w-[18px] bg-[#8ecae6] dark:bg-[#00509e]" style="height:${savedHeight}px;"></div>
+        <div class="w-[18px] bg-[#f87171] dark:bg-[#c53030]" style="height:${expenseHeight}px;"></div>
+      </div>
+      <span class="text-[11px] mt-1">${monthNames[i]}</span>
+    `;
+    chart.appendChild(monthDiv);
+  });
+}
+
+// Event listener
+document.getElementById("monthSelect").addEventListener("change", updateUI);
+updateUI();
+
+// Sidebar toggle
+function toggleSidebar() {
+  const sidebar = document.getElementById("themeSidebar");
+  const page = document.getElementById("pageContent");
+  sidebar.classList.toggle("-translate-x-full");
+
+  if (!sidebar.classList.contains("-translate-x-full")) page.classList.add("ml-60");
+  else page.classList.remove("ml-60");
+}
+
+// Theme function
+function setTheme(theme) {
+  document.body.classList.remove("bg-gray-50","text-gray-900","bg-[#1a1a1a]","text-gray-100","bg-sky-50","bg-slate-50","bg-amber-50");
+  document.documentElement.classList.remove("dark");
+
+  if(theme==="default") document.body.classList.add("bg-gray-50","text-gray-900");
+  if(theme==="dark"){ document.documentElement.classList.add("dark"); document.body.classList.add("bg-[#1a1a1a]","text-gray-100"); }
+  if(theme==="light-blue") document.body.classList.add("bg-sky-50","text-slate-900");
+  if(theme==="protanopia") document.body.classList.add("bg-slate-50","text-slate-900");
+  if(theme==="deuteranopia") document.body.classList.add("bg-gray-50","text-slate-900");
+  if(theme==="tritanopia") document.body.classList.add("bg-amber-50","text-slate-900");
+
+  localStorage.setItem("theme",theme);
+}
+function loadTheme(){ setTheme(localStorage.getItem("theme") || "default"); }
+loadTheme();
+
+</script>
+
+</body>
+</html>
