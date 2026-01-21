@@ -1,212 +1,314 @@
-var currentTheme = "default";
-var chart;
+    const categoryData = {
+            labels: ['Food', 'Transport', 'Entertainment', 'Shopping'],
+            percentages: [42, 33, 12, 10],
+            colors: ['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6']
+        };
+        
+       
+        let currentColorblindTheme = 'normal';
+        
 
-document.addEventListener("DOMContentLoaded", function () {
-  loadProfile();
-  loadTheme();
-  updateSummary();
-  loadChart();
-
-  var profileForm = document.getElementById("profileForm");
-  var resetThemeBtn = document.getElementById("resetThemeBtn");
-  var exportSettingsBtn = document.getElementById("exportSettingsBtn");
-  var printSettingsBtn = document.getElementById("printSettingsBtn");
-  var mobileMenuBtn = document.getElementById("mobileMenuBtn");
-
-  // NEW: Settings-only dark mode button (inside Themes card)
-  var darkModeBtn = document.getElementById("darkModeBtn");
-
-  if (profileForm) profileForm.addEventListener("submit", saveProfile);
-  if (resetThemeBtn) resetThemeBtn.addEventListener("click", resetTheme);
-  if (exportSettingsBtn) exportSettingsBtn.addEventListener("click", exportSettings);
-  if (printSettingsBtn) printSettingsBtn.addEventListener("click", printSettings);
-  if (mobileMenuBtn) mobileMenuBtn.addEventListener("click", toggleMenu);
-
-  // Dark mode toggle is now handled ONLY in Settings page (no moon button)
-  if (darkModeBtn) {
-    darkModeBtn.addEventListener("click", function () {
-      // Toggle dark mode (global)
-      var isDark = document.documentElement.classList.toggle("dark");
-      setTheme(isDark ? "dark" : "default");
-    });
-  }
-
-  document.querySelectorAll(".theme-option").forEach(function (item) {
-    item.addEventListener("click", function () {
-      setTheme(item.dataset.theme);
-    });
-  });
-});
-
-/* ---------------- PROFILE ---------------- */
-
-function saveProfile(e) {
-  e.preventDefault();
-
-  var userName = document.getElementById("userName");
-  var userEmail = document.getElementById("userEmail");
-  var profileSaveMsg = document.getElementById("profileSaveMsg");
-
-  if (!userName || !userEmail) return;
-
-  localStorage.setItem("name", userName.value);
-  localStorage.setItem("email", userEmail.value);
-
-  if (profileSaveMsg) profileSaveMsg.classList.remove("hidden");
-  updateSummary();
-}
-
-function loadProfile() {
-  var userName = document.getElementById("userName");
-  var userEmail = document.getElementById("userEmail");
-
-  if (userName) userName.value = localStorage.getItem("name") || "John Doe";
-  if (userEmail) userEmail.value = localStorage.getItem("email") || "john.doe@example.com";
-}
-
-function updateSummary() {
-  var userName = document.getElementById("userName");
-  var userEmail = document.getElementById("userEmail");
-
-  var summaryUser = document.getElementById("summaryUser");
-  var summaryEmail = document.getElementById("summaryEmail");
-  var summaryTheme = document.getElementById("summaryTheme");
-
-  if (summaryUser && userName) summaryUser.innerText = userName.value;
-  if (summaryEmail && userEmail) summaryEmail.innerText = userEmail.value;
-  if (summaryTheme) summaryTheme.innerText = currentTheme;
-}
-
-/* ---------------- THEMES (TAILWIND ONLY) ---------------- */
-
-function setTheme(theme) {
-  var body = document.body;
-  if (!body) return;
-
-  // Remove only known theme classes (do NOT nuke layout classes)
-  body.classList.remove(
-    "bg-gray-50", "text-gray-900",
-    "bg-[#1a1a1a]", "text-gray-100",
-    "bg-sky-50",
-    "bg-slate-50",
-    "bg-amber-50"
-  );
-
-  // Default layout classes must always stay
-  body.classList.add("min-h-screen", "flex", "flex-col");
-
-  // Reset Tailwind dark mode class first
-  document.documentElement.classList.remove("dark");
-
-  if (theme === "default") {
-    body.classList.add("bg-gray-50", "text-gray-900");
-  }
-
-  if (theme === "dark") {
-    document.documentElement.classList.add("dark");
-    body.classList.add("bg-[#1a1a1a]", "text-gray-100");
-  }
-
-  if (theme === "light-blue") {
-    body.classList.add("bg-sky-50", "text-slate-900");
-  }
-
-  // Accessibility-style themes (background-focused)
-  if (theme === "protanopia") {
-    body.classList.add("bg-slate-50", "text-slate-900");
-  }
-
-  if (theme === "deuteranopia") {
-    body.classList.add("bg-gray-50", "text-slate-900");
-  }
-
-  if (theme === "tritanopia") {
-    body.classList.add("bg-amber-50", "text-slate-900");
-  }
-
-  currentTheme = theme;
-
-  var currentThemeDisplay = document.getElementById("currentThemeDisplay");
-  var summaryTheme = document.getElementById("summaryTheme");
-
-  if (currentThemeDisplay) currentThemeDisplay.innerText = theme;
-  if (summaryTheme) summaryTheme.innerText = theme;
-
-  // Persist theme choice (this is what other pages read)
-  localStorage.setItem("theme", theme);
-}
-
-function loadTheme() {
-  var t = localStorage.getItem("theme");
-  setTheme(t || "default");
-}
-
-function resetTheme() {
-  setTheme("default");
-}
-
-/* ---------------- CHART ---------------- */
-
-function loadChart() {
-  var categoryChart = document.getElementById("categoryChart");
-  if (!categoryChart || typeof Chart === "undefined") return;
-
-  chart = new Chart(categoryChart, {
-    type: "doughnut",
-    data: {
-      labels: ["Food", "Transport", "Entertainment", "Shopping"],
-      datasets: [{
-        data: [30, 20, 25, 25],
-        backgroundColor: ["#3b82f6", "#10b981", "#8b5cf6", "#f59e0b"]
-      }]
-    }
-  });
-}
-
-/* ---------------- EXPORT ---------------- */
-
-function exportSettings() {
-  var userName = document.getElementById("userName");
-  var userEmail = document.getElementById("userEmail");
-
-  var data = {
-    name: userName ? userName.value : "",
-    email: userEmail ? userEmail.value : "",
-    theme: currentTheme
-  };
-
-  var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-  var link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "settings.json";
-  link.click();
-}
-
-/* ---------------- PRINT ---------------- */
-
-function printSettings() {
-  var userName = document.getElementById("userName");
-  var userEmail = document.getElementById("userEmail");
-
-  var printDate = document.getElementById("printDate");
-  var printUser = document.getElementById("printUser");
-  var printUserEmail = document.getElementById("printUserEmail");
-  var printTheme = document.getElementById("printTheme");
-  var printSection = document.getElementById("printSection");
-
-  if (printDate) printDate.innerText = new Date().toString();
-  if (printUser && userName) printUser.innerText = userName.value;
-  if (printUserEmail && userEmail) printUserEmail.innerText = userEmail.value;
-  if (printTheme) printTheme.innerText = currentTheme;
-
-  if (printSection) printSection.classList.remove("hidden");
-  window.print();
-  if (printSection) printSection.classList.add("hidden");
-}
-
-/* ---------------- MOBILE MENU ---------------- */
-
-function toggleMenu() {
-  var mobileMenu = document.getElementById("mobileMenu");
-  if (mobileMenu) mobileMenu.classList.toggle("hidden");
-}
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            initializeCategoryChart();
+            
+            
+            document.getElementById('saveProfile').addEventListener('click', function() {
+                const userName = document.getElementById('userName').value;
+                const userEmail = document.getElementById('userEmail').value;
+                
+                if (!userName.trim()) {
+                    showMessage('Please enter your name', 'error');
+                    return;
+                }
+                
+                if (!userEmail.trim() || !isValidEmail(userEmail)) {
+                    showMessage('Please enter a valid email address', 'error');
+                    return;
+                }
+                
+               
+                document.getElementById('currentUserName').textContent = userName;
+                
+                
+                localStorage.setItem('userProfile', JSON.stringify({
+                    name: userName,
+                    email: userEmail
+                }));
+                
+                showMessage('Profile saved successfully!', 'success');
+            });
+            
+            
+            const savedProfile = localStorage.getItem('userProfile');
+            if (savedProfile) {
+                const profile = JSON.parse(savedProfile);
+                document.getElementById('userName').value = profile.name;
+                document.getElementById('userEmail').value = profile.email;
+                document.getElementById('currentUserName').textContent = profile.name;
+            }
+            
+            
+            const themeOptions = document.querySelectorAll('.theme-option');
+            themeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const theme = this.getAttribute('data-theme');
+                    
+                   
+                    themeOptions.forEach(opt => {
+                        opt.querySelector('.fa-check').classList.add('hidden');
+                        opt.classList.remove('bg-blue-50', 'border-blue-300');
+                    });
+                    
+                    this.querySelector('.fa-check').classList.remove('hidden');
+                    this.classList.add('bg-blue-50', 'border-blue-300');
+                    
+                    
+                    document.body.classList.remove('theme-light', 'theme-dark');
+                    
+                    
+                    document.body.classList.add(`theme-${theme}`);
+                    
+                    
+                    document.getElementById('currentThemeDisplay').textContent = 
+                        theme === 'light' ? 'Light Mode' : 'Dark Mode';
+                    
+                 
+                    updateTextColorsForTheme(theme);
+                    
+                    showMessage(`Theme changed to ${theme === 'light' ? 'Light Mode' : 'Dark Mode'} successfully!`, 'success');
+                });
+            });
+            
+           
+            const colorblindOptions = document.querySelectorAll('.colorblind-option');
+            colorblindOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const colorblindType = this.getAttribute('data-colorblind');
+                    currentColorblindTheme = colorblindType;
+                    
+                   
+                    colorblindOptions.forEach(opt => {
+                        opt.querySelector('.fa-check').classList.add('hidden');
+                        opt.classList.remove('bg-blue-50', 'border-blue-300', 'bg-green-50', 'bg-yellow-50');
+                    });
+                    
+                    this.querySelector('.fa-check').classList.remove('hidden');
+                    
+                    
+                    if (colorblindType === 'normal') {
+                        this.classList.add('bg-blue-50', 'border-blue-300');
+                    } else if (colorblindType === 'protanopia') {
+                        this.classList.add('bg-blue-50', 'border-blue-300');
+                    } else if (colorblindType === 'deuteranopia') {
+                        this.classList.add('bg-green-50', 'border-green-300');
+                    } else if (colorblindType === 'tritanopia') {
+                        this.classList.add('bg-yellow-50', 'border-yellow-300');
+                    }
+                    
+                
+                    document.body.classList.remove(
+                        'theme-protanopia',
+                        'theme-deuteranopia', 
+                        'theme-tritanopia'
+                    );
+                    
+                
+                    if (colorblindType !== 'normal') {
+                        document.body.classList.add(`theme-${colorblindType}`);
+                    }
+                    
+                   
+                    let displayName = 'Normal Vision';
+                    if (colorblindType === 'protanopia') displayName = 'Protanopia';
+                    else if (colorblindType === 'deuteranopia') displayName = 'Deuteranopia';
+                    else if (colorblindType === 'tritanopia') displayName = 'Tritanopia';
+                    
+                    document.getElementById('currentColorblindDisplay').textContent = displayName;
+                    
+                    
+                    updateThemeColors();
+                    
+                    showMessage(`Color accessibility mode changed to ${displayName}`, 'success');
+                });
+            });
+            
+         
+            document.getElementById('resetTheme').addEventListener('click', function() {
+                
+                document.body.classList.remove(
+                    'theme-dark', 
+                    'theme-protanopia',
+                    'theme-deuteranopia', 
+                    'theme-tritanopia'
+                );
+                document.body.classList.add('theme-light');
+                
+           
+                themeOptions.forEach(opt => {
+                    opt.querySelector('.fa-check').classList.add('hidden');
+                    opt.classList.remove('bg-blue-50', 'border-blue-300');
+                    if (opt.getAttribute('data-theme') === 'light') {
+                        opt.querySelector('.fa-check').classList.remove('hidden');
+                        opt.classList.add('bg-blue-50', 'border-blue-300');
+                    }
+                });
+                
+                colorblindOptions.forEach(opt => {
+                    opt.querySelector('.fa-check').classList.add('hidden');
+                    opt.classList.remove('bg-blue-50', 'border-blue-300', 'bg-green-50', 'bg-yellow-50');
+                    if (opt.getAttribute('data-colorblind') === 'normal') {
+                        opt.querySelector('.fa-check').classList.remove('hidden');
+                        opt.classList.add('bg-blue-50', 'border-blue-300');
+                    }
+                });
+                
+            
+                document.getElementById('currentThemeDisplay').textContent = 'Light Mode';
+                document.getElementById('currentColorblindDisplay').textContent = 'Normal Vision';
+                
+                currentColorblindTheme = 'normal';
+                
+            
+                updateTextColorsForTheme('light');
+                
+               
+                updateThemeColors();
+                
+                showMessage('Theme reset to default successfully!', 'success');
+            });
+            
+       
+            updateThemeColors();
+        });
+        
+      
+        function updateTextColorsForTheme(theme) {
+            const isDarkMode = theme === 'dark';
+            
+         
+            const headerTitle = document.querySelector('header h1');
+            if (headerTitle) {
+                headerTitle.classList.toggle('text-gray-800', !isDarkMode);
+                headerTitle.classList.toggle('text-white', isDarkMode);
+            }
+            
+            
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                link.classList.toggle('text-gray-700', !isDarkMode);
+                link.classList.toggle('text-gray-300', isDarkMode);
+                link.classList.toggle('hover:text-blue-600', !isDarkMode);
+                link.classList.toggle('hover:text-blue-400', isDarkMode);
+            });
+            
+          
+            const mainTitle = document.querySelector('main h2');
+            if (mainTitle) {
+                mainTitle.classList.toggle('text-gray-800', !isDarkMode);
+                mainTitle.classList.toggle('text-white', isDarkMode);
+            }
+            
+         
+            const subtitle = document.querySelector('main p.mt-1');
+            if (subtitle) {
+                subtitle.classList.toggle('text-gray-600', !isDarkMode);
+                subtitle.classList.toggle('text-gray-400', isDarkMode);
+            }
+        }
+        
+   
+        function initializeCategoryChart() {
+            const ctx = document.getElementById('categoryChart').getContext('2d');
+            
+            
+            const total = categoryData.percentages.reduce((a, b) => a + b, 0);
+            
+           
+            const categoryChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: categoryData.labels,
+                    datasets: [{
+                        data: categoryData.percentages,
+                        backgroundColor: categoryData.colors,
+                        borderColor: '#ffffff',
+                        borderWidth: 2,
+                        hoverOffset: 15
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    return `${label}: ${value}%`;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '65%'
+                }
+            });
+        }
+        
+     
+        function updateThemeColors() {
+            
+            document.body.style.display = 'none';
+            document.body.offsetHeight; 
+            document.body.style.display = '';
+            
+            const header = document.querySelector('header');
+            const primaryButtons = document.querySelectorAll('.btn-primary');
+        }
+        
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        function showMessage(message, type = 'info') {
+            const messageArea = document.getElementById('messageArea');
+            const colors = {
+                success: 'bg-green-100 border-green-400 text-green-700',
+                error: 'bg-red-100 border-red-400 text-red-700',
+                info: 'bg-blue-100 border-blue-400 text-blue-700',
+                warning: 'bg-yellow-100 border-yellow-400 text-yellow-700'
+            };
+            
+            if (document.body.classList.contains('theme-dark')) {
+                colors.success = 'bg-green-900 border-green-700 text-green-200';
+                colors.error = 'bg-red-900 border-red-700 text-red-200';
+                colors.info = 'bg-blue-900 border-blue-700 text-blue-200';
+                colors.warning = 'bg-yellow-900 border-yellow-700 text-yellow-200';
+            }
+            
+            const messageEl = document.createElement('div');
+            messageEl.className = `${colors[type]} border px-4 py-3 rounded-lg mb-4 flex justify-between items-center`;
+            messageEl.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} mr-2"></i>
+                    <span>${message}</span>
+                </div>
+                <button class="text-lg ${document.body.classList.contains('theme-dark') ? 'text-gray-300 hover:text-gray-100' : 'text-gray-500 hover:text-gray-700'}" onclick="this.parentElement.remove()">
+                    &times;
+                </button>
+            `;
+            
+            messageArea.innerHTML = '';
+            messageArea.appendChild(messageEl);
+            
+            setTimeout(() => {
+                if (messageEl.parentElement) {
+                    messageEl.remove();
+                }
+            }, 5000);
+        }
