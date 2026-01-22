@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Us | MoneySpendee</title>
-  <link rel="icon" type="image/png" href="src/tablogo.png">
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -22,95 +21,118 @@
 <body class="font-['Inter'] min-h-screen flex flex-col bg-white text-gray-800 dark:bg-[#1a1a1a] dark:text-gray-100">
 
   <!-- GLOBAL HEADER -->
-<header class="bg-[#E6F2F7] text-white shadow">
-  <div class="max-w-[1200px] mx-auto flex items-center justify-between px-6 h-16">
+    <header class="bg-[#1f4f63] text-white shadow">
+        <div class="max-w-[1200px] mx-auto flex items-center justify-between px-6 h-16">
 
-    <!-- Logo -->
-    <a href="pageHome.html" class="flex items-center h-full">
-  <img
-  src="src/logo.jpeg"
-  class="h-16 object-contain shrink-0"
-  />
-    </a>
+        <!-- Logo -->
+        <a href="pageHome.html" class="flex items-center h-full">
+        <img src="src/logo.jpeg" class="h-16 object-contain shrink-0"/>
+        </a>
 
-    <!-- Navigation -->
-    <nav class="flex items-center gap-8 text-base font-medium">
+            <!-- Navigation -->
+            <nav class="flex items-center gap-8 text-base font-medium">
 
-      <!-- Change underline class per page -->
-      <a href="pageHome.html" class="hover:opacity-80">
-        Home
-      </a>
-
-      <a href="money.html" class="hover:opacity-80">
-        Money
-      </a>
-
-      <a href="trackMoney.html" class="hover:opacity-80">
-        Money Tracking
-      </a>
-
-      <a href="aboutPage.html" class="hover:opacity-80   underline underline-offset-4 ">
-              About
+            <!-- Change underline class per page -->
+            <a href="pageHome.html" class="hover:opacity-80">
+                Home
             </a>
-      <a
-        href="user.html"
-        class="ml-2 w-9 h-9 rounded-full border border-white/40
-               flex items-center justify-center bg-white/10 hover:bg-white/20 transition"
-      >
-        <img src="src/user.png" alt="User" class="w-full h-full object-cover"/>
-      </a>
 
-    </nav>
-  </div>
-</header>
+            <a href="money.html" class="hover:opacity-80  underline underline-offset-4 ">
+                Money
+            </a>
 
+            <a href="trackMoney.html" class="hover:opacity-80">
+                Money Tracking
+            </a>
 
-  <!-- HERO -->
-  <section class="bg-gray-50 dark:bg-[#2b2b2b] text-center px-6 py-24">
-    <h1 class="text-5xl font-bold mb-6">About MoneySpendee</h1>
-    <p class="text-xl text-gray-500 dark:text-gray-300 max-w-3xl mx-auto mb-10">
-      A Smart Personal Budget & Expense Tracker designed to help you take control of your finances with clarity, feedback, and ease of use.
-    </p>
+            <a href="aboutPage.html" class="hover:opacity-80">
+                    About
+            </a>
+            
+            <a
+                href="user.html"
+                class="ml-2 w-9 h-9 rounded-full border border-white/40
+                    flex items-center justify-center bg-white/10 hover:bg-white/20 transition">
+                <img src="src/user.png" alt="User" class="w-full h-full object-cover"/>
+            </a>
+            </nav>
+        </div>
+    </header>
 
-    <a href="#mission"
-       class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition">
-      Learn More
-    </a>
-  </section>
-
-  <!-- MISSION -->
-  <section id="mission" class="max-w-6xl mx-auto px-6 py-24 text-center">
-    <h2 class="text-4xl font-bold mb-6">Our Mission</h2>
-
-    <p class="text-lg text-gray-500 dark:text-gray-300 max-w-3xl mx-auto mb-12">
-      To make your personal finance management simple, accessible, and give clear insights into your spending.
-    </p>
-
-    <p class="text-blue-600 font-medium text-lg">
-      Everything is processed on your device. Your data never leaves your control.
-    </p>
-  </section>
-
-  <!-- STATS -->
-  <section class="bg-gray-50 dark:bg-[#2b2b2b] px-6 py-24">
-    <div class="flex justify-center gap-20 flex-wrap text-center">
-      <div>
-        <div class="text-6xl font-bold text-blue-600">100%</div>
-        <div class="text-xl font-medium mt-2">Privacy Protected</div>
+  
+<!-- 3-COLUMN SECTION: Mission, Privacy, About -->
+<section id="mission" class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[#1f1f1f] dark:to-[#2b2b2b] px-6 py-16">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Column 1: Mission -->
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
+          <i class="fas fa-bullseye text-3xl text-white"></i>
+        </div>
+        <h2 class="text-2xl font-bold mb-4 text-center">Our Mission</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-4 text-center leading-relaxed">
+          To make your personal finance management simple, accessible, and give clear insights into your spending.
+        </p>
+        <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+          <p class="text-blue-600 dark:text-blue-400 font-semibold text-center text-sm">
+            <i class="fas fa-lock mr-2"></i>Everything is processed on your device. Your data never leaves your control.
+          </p>
+        </div>
       </div>
-
-      <div>
-        <div class="text-6xl font-bold text-blue-600">Free</div>
-        <div class="text-xl font-medium mt-2">For Everyone</div>
+      
+      <!-- Column 2: Privacy Stats -->
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg">
+          <i class="fas fa-shield-alt text-3xl text-white"></i>
+        </div>
+        <div class="text-center space-y-6">
+          <div>
+            <div class="text-5xl font-bold bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">100%</div>
+            <div class="text-lg font-semibold text-gray-700 dark:text-gray-300 mt-2">Privacy Protected</div>
+          </div>
+          <div class="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent"></div>
+          <div>
+            <div class="text-5xl font-bold bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">Free</div>
+            <div class="text-lg font-semibold text-gray-700 dark:text-gray-300 mt-2">For Everyone</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Column 3: About -->
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-lg">
+          <i class="fas fa-info-circle text-3xl text-white"></i>
+        </div>
+        <h2 class="text-2xl font-bold mb-4 text-center">About MoneySpendee</h2>
+        <p class="text-gray-600 dark:text-gray-300 text-center leading-relaxed">
+          A Smart Personal Budget & Expense Tracker designed to help you take control of your finances with clarity, feedback, and ease of use.
+        </p>
       </div>
     </div>
-  </section>
+    
+    <!-- Feedback Call-to-Action Box -->
+    <div class="mt-10 bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 rounded-xl shadow-lg p-6 text-center">
+      <div class="max-w-xl mx-auto">
+        <p class="text-xl text-white mb-4">
+          Share your thoughts with us!
+        </p>
+        <a href="#feedback"
+          class="inline-flex items-center gap-2 bg-white text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg transform hover:-translate-y-1">
+          <i class="fas fa-paper-plane"></i>
+          Give Feedback
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 
   <!-- TEAM -->
-  <section class="max-w-6xl mx-auto px-6 py-28 text-center">
+  <section class="max-w-6xl mx-auto px-6 py-12 text-center">
     <h2 class="text-4xl font-bold mb-6">Meet Our Team</h2>
 
-    <p class="text-lg text-gray-500 dark:text-gray-300 max-w-4xl mx-auto mb-16">
+    <p class="text-lg text-gray-500 dark:text-gray-300 max-w-4xl mx-auto mb-10">
       The passionate individuals behind MoneySpendee who are dedicated to making personal finance management accessible and effective for everyone.
     </p>
 
@@ -126,6 +148,9 @@
           <p class="font-medium bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 bg-clip-text text-transparent">
             Project Leader
           </p>
+          <p class="text-xs uppercase tracking-wide text-gray-400 font-medium">
+            Microsoft (Malaysia) Sdn. Bhd
+          </p>
         </div>
       </div>
 
@@ -138,6 +163,9 @@
           <p class="text-xl font-semibold">Nurin Syazwani</p>
           <p class="font-medium bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 bg-clip-text text-transparent">
             Lead Developer
+          </p>
+          <p class="text-xs uppercase tracking-wide text-gray-400 font-medium">
+            Apple Malaysia Sdn. Bhd
           </p>
         </div>
       </div>
@@ -152,6 +180,9 @@
           <p class="font-medium bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 bg-clip-text text-transparent">
             UI Developer
           </p>
+          <p class="text-xs uppercase tracking-wide text-gray-400 font-medium">
+            Deloitte Malaysia Sdn. Bhd.
+          </p>
         </div>
       </div>
 
@@ -164,6 +195,9 @@
           <p class="text-xl font-semibold">Syakir Syafiq</p>
           <p class="font-medium bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 bg-clip-text text-transparent">
             UI Designer
+          </p>
+          <p class="text-xs uppercase tracking-wide text-gray-400 font-medium">
+            Petroliam Nasional Berhad (PETRONAS)
           </p>
         </div>
       </div>
@@ -178,13 +212,103 @@
           <p class="font-medium bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 bg-clip-text text-transparent">
             Website Tester
           </p>
+          <p class="text-xs uppercase tracking-wide text-gray-400 font-medium">
+            Telekom Malaysia Berhad
+          </p>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!--footer part -->
+
+ <!-- FEEDBACK SECTION -->
+  <section id="feedback" class="bg-gray-50 dark:bg-[#2b2b2b] px-6 py-12">
+    <div class="max-w-xl mx-auto">
+      
+      <!-- Section Header -->
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-3 dark:text-gray-100">💬 Feedback</h2>
+        <p class="text-base text-gray-600 dark:text-gray-300">
+          We'd love to hear your thoughts about MoneySpendee!
+        </p>
+      </div>
+
+      <!-- Feedback Form -->
+      <form id="feedbackForm" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        
+        <h3 class="text-xl font-bold mb-5 text-gray-800 dark:text-gray-100 flex items-center gap-2">
+          <i class="fas fa-comments text-blue-600"></i>
+          Feedback Form
+        </h3>
+
+        <!-- Name Field -->
+        <div class="mb-4">
+          <label for="name" class="block text-gray-700 dark:text-gray-200 font-semibold mb-2 text-sm">
+            Name <span class="text-red-500">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            required
+            class="w-full px-3 py-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 outline-none transition text-sm"
+            placeholder="Enter your name">
+          <p id="nameError" class="text-red-500 text-xs mt-1 hidden">Please enter your name</p>
+        </div>
+
+        <!-- Email Field -->
+        <div class="mb-4">
+          <label for="email" class="block text-gray-700 dark:text-gray-200 font-semibold mb-2 text-sm">
+            Email <span class="text-red-500">*</span>
+          </label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            required
+            class="w-full px-3 py-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 outline-none transition text-sm"
+            placeholder="your.email@example.com">
+          <p id="emailError" class="text-red-500 text-xs mt-1 hidden">Please enter a valid email</p>
+        </div>
+
+        <!-- Feedback Field -->
+        <div class="mb-5">
+          <label for="feedback" class="block text-gray-700 dark:text-gray-200 font-semibold mb-2 text-sm">
+            Your Feedback <span class="text-red-500">*</span>
+          </label>
+          <textarea 
+            id="feedback" 
+            name="feedback" 
+            rows="5" 
+            required
+            class="w-full px-3 py-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 outline-none transition resize-none text-sm"
+            placeholder="Share your thoughts, suggestions, or report issues..."></textarea>
+          <p id="feedbackError" class="text-red-500 text-xs mt-1 hidden">Please enter your feedback</p>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex gap-3">
+          <button 
+            type="submit" 
+            id="submitBtn"
+            class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-5 rounded-lg transition transform hover:scale-105 shadow-md text-sm">
+            <i class="fas fa-paper-plane mr-2"></i>Submit
+          </button>
+          
+          <button 
+            type="button" 
+            id="resetBtn"
+            class="px-5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-bold py-2.5 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition text-sm">
+            <i class="fas fa-redo"></i>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
     <footer class="bg-[#8ecae6] dark:bg-[#0d3b66] mt-12">
     <div class="max-w-[1200px] mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center text-[12px]">
       <span>© 2025-2026 MONEYSPENDEE. All rights reserved.</span>
@@ -202,5 +326,45 @@
     }
   </script>
 
-</body>
-</html>
+<!-- Smooth Scroll Script when user click submit -->
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+  </script>
+
+<!--Feedback js-->
+<script>
+  const feedbackForm = document.getElementById('feedbackForm');
+  const resetBtn = document.getElementById('resetBtn');
+
+  // Submit handler
+  feedbackForm.addEventListener('submit', function (e) {
+    e.preventDefault(); // stop page refresh
+
+    // If browser validation fails, stop here
+    if (!feedbackForm.checkValidity()) {
+      return;
+    }
+
+    // Success popup
+    alert('Feedback has been saved');
+
+    // Reset form
+    feedbackForm.reset();
+  });
+
+  // Reset button with confirmation
+  resetBtn.addEventListener('click', function () {
+    const confirmReset = confirm(
+      'This will clear all the fields.'
+    );
+
+    if (confirmReset) {
+      feedbackForm.reset();
