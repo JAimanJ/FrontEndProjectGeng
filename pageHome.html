@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard | MoneySpendee</title>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { darkMode: 'class' }
+</script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { scrollbar-width: none; }
+</style>
+</head>
+
+<body class="font-['Inter'] bg-white dark:bg-[#1a1a1a] text-[#333] dark:text-[#f0f0f0] min-h-screen flex flex-col">
+
+<!-- HEADER -->
+<header class="bg-[#1f4f63] text-white shadow">
+  <div class="flex justify-between items-center px-6 py-3">
+    <div class="flex items-center gap-3">
+      <img src="src/logo.jpeg" class="w-10 h-10 rounded-full bg-white">
+      <span class="text-lg font-semibold">MONEYSPENDEE</span>
+    </div>
+    <nav class="flex items-center gap-6 text-sm">
+      <a href="#" class="underline">Home</a>
+      <a href="#">About</a>
+      <a href="#">Money</a>
+      <a href="#">Money Tracking</a>
+      <a href="#"><img src="src/user.png" class="w-9 h-9 rounded-full border border-white/40"></a>
+    </nav>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="flex-grow px-4 sm:px-6 lg:px-12 py-8 space-y-8">
+
+  <!-- WELCOME + SCROLL -->
+  <div class="flex justify-between items-center mb-6">
+    <div>
+      <h2 class="text-3xl font-bold mb-1">Welcome Back 👋</h2>
+      <p class="text-slate-600 dark:text-slate-300">
+        Here’s a quick overview of your budget and spending activities.
+      </p>
+    </div>
+    <div class="relative group flex items-center gap-2">
+      <span class="bg-[#1f4f63] text-white text-xs px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition">
+        See your expenses
+      </span>
+      <button onclick="scrollToExpenses()" class="bg-[#1f4f63] hover:bg-[#166074] text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- SUMMARY CARDS -->
+  <section class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+    <div class="bg-[#f8fafc] dark:bg-[#1e293b] p-4 rounded-lg shadow flex justify-between items-center hover:scale-105 transition">
+      <div><p class="text-sm text-slate-500">Total Budget</p><p class="text-xl font-bold">RM15,300</p></div>
+      <span class="text-3xl">💰</span>
+    </div>
+    <div class="bg-[#f8fafc] dark:bg-[#1e293b] p-4 rounded-lg shadow flex justify-between items-center hover:scale-105 transition">
+      <div><p class="text-sm text-slate-500">Total Spend</p><p class="text-xl font-bold">RM4,950</p></div>
+      <span class="text-3xl">📋</span>
+    </div>
+    <div class="bg-[#f8fafc] dark:bg-[#1e293b] p-4 rounded-lg shadow flex justify-between items-center hover:scale-105 transition">
+      <div><p class="text-sm text-slate-500">No. of Budget</p><p class="text-xl font-bold">5</p></div>
+      <span class="text-3xl">💼</span>
+    </div>
+  </section>
+
+  <!-- GRAPH + LATEST BUDGETS -->
+  <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- CHART -->
+    <div class="lg:col-span-2 bg-[#f8fafc] dark:bg-[#1e293b] p-4 rounded-lg shadow h-80">
+      <h3 class="font-semibold text-lg mb-2">Activity</h3>
+      <canvas id="budgetChart"></canvas>
+    </div>
+
+    <!-- LATEST BUDGETS -->
+    <div class="bg-[#f8fafc] dark:bg-[#1e293b] p-4 rounded-lg shadow h-80 flex flex-col">
+      <h3 class="font-semibold text-lg mb-4">Latest Budgets</h3>
+      <div class="flex-1 overflow-y-auto scrollbar-hide space-y-4 pr-2">
+
+        <div class="bg-white dark:bg-[#0f172a] rounded-lg p-4 h-32 shadow hover:scale-105 transition">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center">🛒</div>
+            <div><p class="font-semibold">Shopping</p><p class="text-sm text-slate-500">2 Item</p></div></div>
+            <p class="font-bold text-[#1f4f63]">RM2500</p>
+          </div>
+          <div class="mt-3">
+            <div class="h-2 bg-slate-300 dark:bg-slate-700 rounded">
+              <div class="h-2 bg-[#1f4f63] rounded" style="width:11%"></div>
+            </div>
+            <div class="flex justify-between text-xs text-slate-500 mt-1">
+              <span>RM270 Spend</span><span>RM2230 Remaining</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-[#0f172a] rounded-lg p-4 h-32 shadow hover:scale-105 transition">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center">🏠</div>
+            <div><p class="font-semibold">Home Decor</p><p class="text-sm text-slate-500">3 Item</p></div></div>
+            <p class="font-bold text-[#1f4f63]">RM3800</p>
+          </div>
+          <div class="mt-3">
+            <div class="h-2 bg-slate-300 dark:bg-slate-700 rounded">
+              <div class="h-2 bg-[#1f4f63]" style="width:87%"></div>
+            </div>
+            <div class="flex justify-between text-xs text-slate-500 mt-1">
+              <span>RM3300 Spend</span><span>RM500 Remaining</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-[#0f172a] rounded-lg p-4 h-32 shadow hover:scale-105 transition">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center">🌿</div>
+            <div><p class="font-semibold">Garden</p><p class="text-sm text-slate-500">2 Item</p></div></div>
+            <p class="font-bold text-[#1f4f63]">RM1500</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LATEST EXPENSES -->
+  <section id="latestExpenses" class="bg-[#f8fafc] dark:bg-[#1e293b] p-4 rounded-lg shadow">
+    <h3 class="font-semibold text-lg mb-4">Latest Expenses</h3>
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="text-left text-slate-500 border-b border-slate-300 dark:border-slate-700">
+          <th>Category</th><th>Amount</th><th>Date</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <td>Shopping</td><td>RM270</td><td>12 Jan</td><td><button onclick="deleteRow(this)" class="text-red-500">Delete</button></td>
+        </tr>
+        <tr class="border-b border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <td>Home Decor</td><td>RM3300</td><td>14 Jan</td><td><button onclick="deleteRow(this)" class="text-red-500">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-[#1f4f63] dark:bg-[#0d3b66] mt-12 text-white">
+  <div class="px-6 py-4 flex justify-between text-[12px]">
+    <span>© 2025-2026 MONEYSPENDEE. All rights reserved.</span>
+    <span class="opacity-90">Group 6 – ITT588</span>
+  </div>
+</footer>
+
+<!-- DARK MODE BUTTON -->
+<button id="themeToggle" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-[#1f4f63] text-white shadow-lg">
+  🌙
+</button>
+
+<script>
+// Delete row function
+function deleteRow(btn) { btn.closest('tr').remove(); }
+
+// Dark mode toggle
+document.getElementById('themeToggle').addEventListener('click', () => {
+  document.documentElement.classList.toggle('dark');
+  document.getElementById('themeToggle').textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+});
+
+// Scroll to expenses
+function scrollToExpenses() {
+  document.getElementById('latestExpenses').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Simple Chart.js
+const ctx = document.getElementById('budgetChart').getContext('2d');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Shopping', 'Home Decor', 'Garden', 'Car', 'Youtube'],
+    datasets: [
+      { label: 'Total Spend', data: [1100, 3200, 600, 300, 1100], backgroundColor: '#1f4f63' },
+      { label: 'Amount', data: [5000, 4000, 1500, 1200, 5000], backgroundColor: '#6b8fa1' }
+    ]
+  },
+  options: { responsive:true, maintainAspectRatio:false, scales:{x:{stacked:true}, y:{stacked:true, beginAtZero:true}} }
+});
+</script>
+</body>
+</html>
