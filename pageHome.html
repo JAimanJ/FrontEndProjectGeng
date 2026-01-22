@@ -25,22 +25,44 @@
 
 <body class="font-['Inter'] bg-white dark:bg-[#1a1a1a] text-[#333] dark:text-[#f0f0f0] min-h-screen flex flex-col">
 
-<!-- HEADER -->
-<header class="bg-[#1f4f63] text-white shadow">
-  <div class="flex justify-between items-center px-6 py-3">
-    <div class="flex items-center gap-3">
-      <img src="src/logo.jpeg" class="w-10 h-10 rounded-full bg-white">
-      <span class="text-lg font-semibold">MONEYSPENDEE</span>
-    </div>
-    <nav class="flex items-center gap-6 text-sm">
-      <a href="#" class="underline">Home</a>
-      <a href="#">About</a>
-      <a href="#">Money</a>
-      <a href="#">Money Tracking</a>
-      <a href="#"><img src="src/user.png" class="w-9 h-9 rounded-full border border-white/40"></a>
-    </nav>
-  </div>
-</header>
+<!-- GLOBAL HEADER -->
+    <header class="bg-[#1f4f63] text-white shadow">
+        <div class="max-w-[1200px] mx-auto flex items-center justify-between px-6 h-16">
+
+        <!-- Logo -->
+        <a href="pageHome.html" class="flex items-center h-full">
+        <img src="src/logo.jpeg" class="h-16 object-contain shrink-0"/>
+        </a>
+
+            <!-- Navigation -->
+            <nav class="flex items-center gap-8 text-base font-medium">
+
+            <!-- Change underline class per page -->
+            <a href="pageHome.html" class="hover:opacity-80  underline underline-offset-4 ">
+                Home
+            </a>
+
+            <a href="money.html" class="hover:opacity-80">
+                Money
+            </a>
+
+            <a href="trackMoney.html" class="hover:opacity-80">
+                Money Tracking
+            </a>
+
+            <a href="aboutPage.html" class="hover:opacity-80">
+                    About
+            </a>
+            
+            <a
+                href="user.html"
+                class="ml-2 w-9 h-9 rounded-full border border-white/40
+                    flex items-center justify-center bg-white/10 hover:bg-white/20 transition">
+                <img src="src/user.png" alt="User" class="w-full h-full object-cover"/>
+            </a>
+            </nav>
+        </div>
+    </header>
 
 <!-- MAIN -->
 <main class="flex-grow px-4 sm:px-6 lg:px-12 py-8 space-y-8">
@@ -160,13 +182,14 @@
 
 </main>
 
-<!-- FOOTER -->
-<footer class="bg-[#1f4f63] dark:bg-[#0d3b66] mt-12 text-white">
-  <div class="px-6 py-4 flex justify-between text-[12px]">
-    <span>© 2025-2026 MONEYSPENDEE. All rights reserved.</span>
-    <span class="opacity-90">Group 6 – ITT588</span>
-  </div>
-</footer>
+<!--footer part -->
+    <footer class="bg-[#8ecae6] dark:bg-[#0d3b66] mt-12">
+    <div class="max-w-[1200px] mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center text-[12px]">
+      <span>© 2025-2026 MONEYSPENDEE. All rights reserved.</span>
+      <span class="opacity-90">Group 6 – ITT588</span>
+    </div>
+  </footer>
+
 
 <!-- DARK MODE BUTTON -->
 <button id="themeToggle" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-[#1f4f63] text-white shadow-lg">
